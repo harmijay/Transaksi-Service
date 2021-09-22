@@ -19,7 +19,7 @@ public class TransaksiConfig {
                     3,
                     LocalDateTime.now(),
                     1,
-                    "Log Transaksi"
+                    "Log Transaksi 1"
             );
 
             Transaksi tr2 = new Transaksi(
