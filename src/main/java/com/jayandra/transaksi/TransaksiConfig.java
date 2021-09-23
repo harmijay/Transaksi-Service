@@ -1,8 +1,10 @@
 package com.jayandra.transaksi;
 
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -10,6 +12,12 @@ import java.util.List;
 
 @Configuration
 public class TransaksiConfig {
+
+    @Bean
+    @LoadBalanced
+    public WebClient.Builder loadBalancer(){
+        return WebClient.builder();
+    }
 
     @Bean
     CommandLineRunner commandLineRunner(TransaksiRepository repository){
