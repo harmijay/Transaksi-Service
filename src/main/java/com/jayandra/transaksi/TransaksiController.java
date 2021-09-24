@@ -25,32 +25,29 @@ import java.util.Map;
 @RequestMapping(path="api/transaksi")
 public class TransaksiController {
 
+
+
     @Autowired
     private WebClient.Builder tagihanService;
-//    @LoadBalanced
-//    public WebClient tagihanService = WebClient.create("http://tagihanservice");
 
-    private final TransaksiRepository transaksiRepository;
-
+    private final TransaksiService transaksiService;
     @Autowired
-    public TransaksiController(TransaksiRepository transaksiRepository) {
-        this.transaksiRepository = transaksiRepository;
+    public TransaksiController(TransaksiService transaksiService) {
+        this.transaksiService = transaksiService;
     }
 
     @GetMapping
     public List<Transaksi> getTransaksi(){
-        return transaksiRepository.findAll();
+        return transaksiService.getTransaksi();
     }
 
     @PostMapping
-    public void newTransaksi(@RequestBody Transaksi transaksi){
-        transaksi.setWaktuTransaksi(LocalDateTime.now());
-        transaksiRepository.save(transaksi);
+    public HashMap<String,Object> newTransaksi(@RequestBody Transaksi transaksi){
+        return transaksiService.newTransaksi(transaksi);
     }
 
     @GetMapping("/tagihan")
     public String testTagihan(){
-//        WebClient client = tagihanService.baseUrl("http://10.10.30.41:7004").build();
         WebClient client = WebClient.create("http://10.10.30.41:7004");
 
         WebClient.ResponseSpec responseSpec = client.get()
@@ -87,10 +84,11 @@ public class TransaksiController {
 
     @GetMapping("/tabungan/post")
     public String postTabungan() throws JSONException {
-        WebClient client = WebClient.create("http://10.10.30.32:7002");
+//        WebClient client = WebClient.create("http://10.10.30.32:7002");
+        WebClient client = WebClient.create("http://localhost:7002");
 
         HashMap hsmap = new HashMap();
-        hsmap.put("saldo", 3);
+        hsmap.put("saldo", 50000);
         hsmap.put("jenisTabungan", "Platinum");
 
         WebClient.ResponseSpec responseSpec = client.post()
@@ -105,7 +103,8 @@ public class TransaksiController {
 
     @GetMapping("/tabungan/put")
     public String putTabungan() throws JSONException {
-        WebClient client = WebClient.create("http://10.10.30.32:7002");
+//        WebClient client = WebClient.create("http://10.10.30.32:7002");
+        WebClient client = WebClient.create("http://localhost:7002");
 
         HashMap hsmap = new HashMap();
         hsmap.put("nomorRekening", 3);

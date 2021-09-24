@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 @Table
 public class Transaksi {
 
-    public Transaksi(int nomorNasabah, int jenisTransaksi, LocalDateTime waktuTransaksi, int statusTransaksi, String logTransaksi) {
-        this.nomorNasabah = nomorNasabah;
+    public Transaksi(int nomorRekening, int jenisTransaksi, LocalDateTime waktuTransaksi, int statusTransaksi, String logTransaksi) {
+        this.nomorRekening = nomorRekening;
         this.jenisTransaksi = jenisTransaksi;
         this.waktuTransaksi = waktuTransaksi;
         this.statusTransaksi = statusTransaksi;
@@ -32,7 +32,7 @@ public class Transaksi {
             generator = "transaksi_sequence"
     )
     private Long idTransaksi;
-    private int nomorNasabah;
+    private int nomorRekening;
     private int jenisTransaksi;
     private LocalDateTime waktuTransaksi;
     private int statusTransaksi;
