@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.minidev.json.parser.JSONParser;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.http.HttpMethod;
@@ -25,7 +27,7 @@ import java.util.Map;
 @RequestMapping(path="api/transaksi")
 public class TransaksiController {
 
-
+    Logger logger = LoggerFactory.getLogger(TransaksiController.class);
 
     @Autowired
     private WebClient.Builder tagihanService;
@@ -38,6 +40,7 @@ public class TransaksiController {
 
     @GetMapping
     public List<Transaksi> getTransaksi(){
+        logger.info("Mengambil Transaksi dari db postgre");
         return transaksiService.getTransaksi();
     }
 
